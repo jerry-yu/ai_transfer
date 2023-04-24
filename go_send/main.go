@@ -5,6 +5,7 @@ import (
 	"log"
 	"math/big"
 	"os"
+	"strings"
 
 	gsrpc "github.com/centrifuge/go-substrate-rpc-client/v4"
 	"github.com/centrifuge/go-substrate-rpc-client/v4/config"
@@ -17,17 +18,17 @@ func main() {
 	to := os.Args[2]
 	amount := os.Args[3]
 
-	embending_account := []string{"Alice", "Bob", "Dave"}
+	embending_account := []string{"Alice", "Bob", "Dave", "Eve"}
 
 	var from_address, to_address signature.KeyringPair
 	var err error
 	for _, v := range embending_account {
-		if v == from {
+		if strings.EqualFold(v, from) {
 			from_address, err = signature.KeyringPairFromSecret("//"+v, 42)
 			if err != nil {
 				log.Fatal(err)
 			}
-		} else if v == to {
+		} else if strings.EqualFold(v, to) {
 			to_address, err = signature.KeyringPairFromSecret("//"+v, 42)
 			if err != nil {
 				log.Fatal(err)

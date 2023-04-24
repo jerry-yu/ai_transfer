@@ -3,7 +3,7 @@ from langchain.llms import OpenAI
 from langchain import PromptTemplate
 
 import os
-os.environ["OPENAI_API_KEY"] = "your openai api key"
+os.environ["OPENAI_API_KEY"] = "sk-your openai api key"
 
 _template = """If someone asks you to perform a task, your job is to come up with a series of bash commands that will perform the task. There is no need to put "#!/bin/bash" in your answer. Make sure to reason step by step, using this format:
 
@@ -21,7 +21,7 @@ cp -r target/* myNewDirectory
 Thereis a special question: 
 Question: "transfer from 'from' to 'to' ,the amount is 'amount'"
 I need to take the following actions:
-- Call './go_send' with the parameters 'from', 'to', and 'amount'.
+- Call './go_send' with the parameters 'from', 'to', and 'amount',capitalize the first letter.
 
 That is the format. Begin!
 
