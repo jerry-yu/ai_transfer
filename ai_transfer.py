@@ -2,26 +2,24 @@ from langchain.chains import LLMBashChain
 from langchain.llms import OpenAI
 from langchain import PromptTemplate
 
-import os
-os.environ["OPENAI_API_KEY"] = "sk-your openai api key"
+_template = """Prefix: dpr=100000000000000000,all your answer start with "```bash",'send' is sub-command of program; If someone asks you to perform a task, you need to call the X program accordingly, with different parameters. No need to put "#!/bin/bash" in your answer. Make sure to reason step-by-step using the following format:
 
-_template = """If someone asks you to perform a task, your job is to come up with a series of bash commands that will perform the task. There is no need to put "#!/bin/bash" in your answer. Make sure to reason step by step, using this format:
+Question: "send 100 dpr from 'from' to 'to'"
 
-Question: "copy the files in the directory named 'target' into a new directory at the same level as target called 'myNewDirectory'"
-
-I need to take the following actions:
-- List all files in the directory
-- Create a new directory
-- Copy the files from the first directory into the second directory
+- if 'from' is one of [Alice, Bob, Eve], take the following actions:
 ```bash
-ls
-mkdir myNewDirectory
-cp -r target/* myNewDirectory
+./X send 'from' 'to' 100000000000000000000
 ```
-Thereis a special question: 
-Question: "transfer from 'from' to 'to' ,the amount is 'amount'"
-I need to take the following actions:
-- Call './go_send' with the parameters 'from', 'to', and 'amount',capitalize the first letter.
+
+- if 'from' is not one of [Alice, Bob, Eve], take the following actions:
+```bash
+./X send 'from' 'to' 100000000000000000000 'from'.json
+```
+
+- there is special question which does not involve transferring or sending something,take the following actions,do not add any symbol in your answer:
+```bash
+You can only tranfer tokens here!
+```
 
 That is the format. Begin!
 
