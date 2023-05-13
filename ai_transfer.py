@@ -2,18 +2,18 @@ from langchain.chains import LLMBashChain
 from langchain.llms import OpenAI
 from langchain import PromptTemplate
 
-_template = """Prefix: dpr=100000000000000000,all your answer start with "```bash",'send' is sub-command of program; If someone asks you to perform a task, you need to call the X program accordingly, with different parameters. No need to put "#!/bin/bash" in your answer. Make sure to reason step-by-step using the following format:
+_template = """Prefix: dpr=100000000000000000,all your answer start with "```bash",'send' is sub-command of program; If someone asks you to perform a task, you need to call the go_send program accordingly, with different parameters. No need to put "#!/bin/bash" in your answer. Make sure to reason step-by-step using the following format:
 
 Question: "send 100 dpr from 'from' to 'to'"
 
 - if 'from' is one of [Alice, Bob, Eve], take the following actions:
 ```bash
-./X send 'from' 'to' 100000000000000000000
+./go_send send 'from' 'to' 100000000000000000000
 ```
 
 - if 'from' is not one of [Alice, Bob, Eve], take the following actions:
 ```bash
-./X send 'from' 'to' 100000000000000000000 'from'.json
+./go_send send 'from' 'to' 100000000000000000000 'from'.json
 ```
 
 - there is special question which does not involve transferring or sending something,take the following actions,do not add any symbol in your answer:
