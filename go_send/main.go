@@ -14,11 +14,15 @@ import (
 )
 
 func main() {
-	from := os.Args[1]
-	to := os.Args[2]
-	amount := os.Args[3]
+	command := os.Args[1]
+	from := os.Args[2]
+	to := os.Args[3]
+	amount := os.Args[4]
+	if command != "send" {
+		return
+	}
 
-	embending_account := []string{"Alice", "Bob", "Dave", "Eve"}
+	embending_account := []string{"Alice", "Bob", "Dave", "Eve", "Charlie"}
 
 	var from_address, to_address signature.KeyringPair
 	var err error
